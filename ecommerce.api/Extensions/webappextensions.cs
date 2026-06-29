@@ -1,0 +1,18 @@
+﻿using ecomerce_domain.contract;
+
+namespace ecommerce.api.Extensions
+{
+    public static class webappextensions
+    {
+        public static async Task<WebApplication> SeedDataAsync(this WebApplication app)
+        {
+
+            using var scope = app.Services.CreateScope();
+            var seeder = scope.ServiceProvider.GetRequiredKeyedService<IDataSeeder>("Catalog");
+            await seeder.seedasync();
+            return app;
+                
+                
+                }
+    }
+}

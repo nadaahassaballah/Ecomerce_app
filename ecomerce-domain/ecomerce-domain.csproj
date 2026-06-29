@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<RootNamespace>ecomerce_domain</RootNamespace>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="contracts\**" />
+	  <Compile Remove="idataseeder\**" />
+	  <EmbeddedResource Remove="contracts\**" />
+	  <EmbeddedResource Remove="idataseeder\**" />
+	  <None Remove="contracts\**" />
+	  <None Remove="idataseeder\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Include="..\ecommerce.infastructure\data\storeDbcontext.cs" Link="storeDbcontext.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.28" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.28">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+</Project>
