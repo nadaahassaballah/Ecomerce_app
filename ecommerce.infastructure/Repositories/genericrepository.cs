@@ -15,6 +15,10 @@ namespace ecommerce.infastructure.Repositories
     {
         public void add(TEntity entity)=>dbcontext.Set<TEntity>().Add(entity);
 
+        public Task<int> countasync(ispesification<TEntity, TKey> Spec, CancellationToken ct = default)
+        {
+            return SpessificationEvaloute.CreateQuery(dbcontext.Set<TEntity>(), Spec).CountAsync(ct);        }
+
         public async Task<IReadOnlyList<TEntity>> GetAllAsync(CancellationToken ct = default)
        => await dbcontext.Set<TEntity>().AsNoTracking().ToListAsync(ct);
 

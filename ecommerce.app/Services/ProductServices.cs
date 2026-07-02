@@ -31,7 +31,7 @@ namespace ecommerce.app.Services
             return Result<IReadOnlyList<BrandDTO>>.OK(mapper.Map<IReadOnlyList<BrandDTO>>(brand));
         }
  
-        public async Task<Result<IReadOnlyList<ProductsDTO>>> GetAllProductAsync(Productquerryprams productquerryprams
+        public async Task<Result<Pagginationresult<ProductsDTO>>> GetAllProductAsync(Productquerryprams productquerryprams
             ,CancellationToken ct)
         {
             var spec = new ProductWithBrandTypeSpecification(productquerryprams);
@@ -40,8 +40,15 @@ namespace ecommerce.app.Services
             var products = await repo.GetAllAsync(spec,ct);
 
             var data = mapper.Map<IReadOnlyList<ProductsDTO>>(products);
+            var countspec = new productcountspesfication(productquerryprams);
+            var countofallproducts = await iunitofworks.GetRepository<Product, int>().countasync(countspec);
+            var result = new Pagginationresult<ProductsDTO>(
+           productquerryprams.pageindex,
+           productquerryprams.Pagesize,
+           countofallproducts,
+           data);
 
-            return Result<IReadOnlyList<ProductsDTO>>.OK(data);
+            return Result<Pagginationresult<ProductsDTO>>.OK(result);
         }
 
         public async Task<Result<IReadOnlyList<TypeDTO>>> GetAllTypeAsync(CancellationToken ct = default)

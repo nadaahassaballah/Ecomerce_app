@@ -15,5 +15,13 @@ namespace ecomerce_domain.contract
         ICollection<Expression<Func<Tentity, object>>> includeExpression {  get; }
 
         Expression<Func<Tentity, bool>> criteria { get; }
+
+
+        Expression<Func<Tentity, object>> orderby { get; }
+        Expression<Func<Tentity, object>> orderbydesc { get; }
+        int take {  get; }
+        int Skip { get; }
+        bool ispaginated { get; }
+
     }
 }

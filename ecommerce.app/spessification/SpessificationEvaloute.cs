@@ -28,7 +28,12 @@ namespace ecommerce.app.spessification
                     query,
                     (current, include) => current.Include(include));
             }
-
+            if (spec.orderby!=null) query=query.OrderBy(spec.orderby);
+            else if (spec.orderbydesc != null) query = query.OrderByDescending(spec.orderbydesc);
+            if (spec.ispaginated)
+            {
+                query = query.Skip(spec.Skip).Take(spec.take);
+            }
             return query;
         }
     }

@@ -20,5 +20,6 @@ namespace ecomerce_domain.contract
         void add(TEntity entity);
         void remove(TEntity entity);
         void update(TEntity entity);
+        Task<int> countasync(ispesification<TEntity, TKey> Spec, CancellationToken ct = default);
     }
 }
