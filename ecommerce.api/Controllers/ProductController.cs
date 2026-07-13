@@ -1,4 +1,5 @@
-﻿using ecommerce.app.common;
+﻿using ecommerce.api.Attrupiets;
+using ecommerce.app.common;
 using ecommerce.app.contracts;
 using ecommerce.app.DTOS.products;
 using ecommerce.app.Services;
@@ -12,7 +13,7 @@ namespace ecommerce.api.Controllers
     {
         #region  getaall product
 
-
+        [RedisCashe(100)]
         [HttpGet]
         [ProducesResponseType(typeof(ProductsDTO), StatusCodes.Status200OK)]
         public async Task<ActionResult<Pagginationresult<ProductsDTO>>> GetAllProducts([FromQuery]Productquerryprams productquerryprams,CancellationToken ct)

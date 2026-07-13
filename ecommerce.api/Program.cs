@@ -1,20 +1,26 @@
 using ecommerce.api.Extensions;
 using ecommerce.infastructure;
-using Microsoft.EntityFrameworkCore;
 using ecommerce.app;
-using Microsoft.Extensions.FileProviders.Physical;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.FileProviders.Physical;
+using StackExchange.Redis;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-builder.Services.addinfastrucrureservice(builder.Configuration);
-builder.Services.AddApplicationService(); // Fixed method name to match .NET naming conventions
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.addinfastrucrureservice(builder.Configuration);
+builder.Services.AddApplicationService();
+
+builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
+{
+    var configuration = builder.Configuration.GetConnectionString("Redis");
+    return ConnectionMultiplexer.Connect(configuration!);
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 await app.SeedDataAsync();
 // Configure the HTTP request pipeline.
