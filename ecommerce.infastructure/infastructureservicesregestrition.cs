@@ -52,8 +52,12 @@ namespace ecommerce.infastructure
     .AddEntityFrameworkStores<StoreIdentityDBContext>();
             services.AddScoped<IIDentityService, IdentityService>();
             services.AddScoped<ITokenService, TokenService>();
+            services.Configure<JWTSettings>(configuration.GetSection("JWT"));
+
             var jwtsetting = configuration.GetSection("JWT").Get<JWTSettings>()
             ?? throw new InvalidOperationException("JWT Setting is not configured");
+
+       
             services.AddAuthentication(opt =>
             {
                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

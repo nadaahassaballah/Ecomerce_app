@@ -11,6 +11,7 @@ using ecomerce_domain.contract;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using ecomerce_domain.entities.product;
+using ecomerce_domain.orders;
 
 namespace ecommerce.infastructure.seeding
 {
@@ -31,6 +32,9 @@ namespace ecommerce.infastructure.seeding
                 await seedifemptyasync<ProductType>(seedroot, "types.json", ct);
 
                 await seedifemptyasync<Product>(seedroot, "products.json", ct);
+
+                await seedifemptyasync<DeliveryMethod>(seedroot, "delivery.json", ct);
+
                 await dbcontext.SaveChangesAsync(ct);
 
 
